@@ -50,6 +50,7 @@ def main() -> None:
             "jump": "assets/jump.wav",
             "penalty": "sound/death..mp3",   # penalty/game-over sound from sound/
             "shoot": "sound/shot.mp3",        # shoot sound from sound/
+            "reward": "sound/rewards.mp3",
         },
     )
 

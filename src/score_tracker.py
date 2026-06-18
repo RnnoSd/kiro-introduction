@@ -11,20 +11,31 @@ class ScoreTracker:
     MAX_LIVES = 9
     INITIAL_LIVES = 3
     LIFE_BONUS_THRESHOLD = 1000
+    REWARD_THRESHOLD = 300
 
     def __init__(self, audio_service=None):
         self.score: int = 0
         self.lives: int = self.INITIAL_LIVES
         self._last_bonus_threshold: int = 0
+        self._last_reward_threshold: int = 0
         self._audio_service = audio_service  # Optional AudioService
 
     def add_points(self, amount: int) -> None:
-        """Add points and grant a life bonus when crossing multiples of 1000 (max 9 lives).
+        """Add points, play reward audio every 300 points, and grant a life bonus every 1000 points.
 
         Requirement 4.4: +5 pts per bar pair, +100 pts per green object.
         Requirement 4.5: bonus life every 1000 points, exactly once per threshold, max 9.
+        Reward audio plays every 300 points milestone.
         """
         self.score += amount
+
+        # Check if we crossed any new 300-point reward threshold
+        new_reward_threshold = (self.score // self.REWARD_THRESHOLD) * self.REWARD_THRESHOLD
+        if new_reward_threshold > self._last_reward_threshold:
+            if self._audio_service is not None:
+                self._audio_service.play_reward()
+            self._last_reward_threshold = new_reward_threshold
+
         # Check if we crossed any new 1000-point threshold
         new_threshold = (self.score // self.LIFE_BONUS_THRESHOLD) * self.LIFE_BONUS_THRESHOLD
         if new_threshold > self._last_bonus_threshold:
@@ -66,6 +77,7 @@ class ScoreTracker:
         self.score = 0
         self.lives = self.INITIAL_LIVES
         self._last_bonus_threshold = 0
+        self._last_reward_threshold = 0
 
     def render(self, surface: pygame.Surface) -> None:
         """Draw HUD: score and lives at a fixed position.

@@ -10,10 +10,12 @@ class AudioService:
         cache.audio["jump"]    -> pygame.mixer.Sound or None
         cache.audio["penalty"] -> pygame.mixer.Sound or None
         cache.audio["shoot"]   -> pygame.mixer.Sound or None (optional)
+        cache.audio["reward"]  -> pygame.mixer.Sound or None (optional)
         """
         self._jump_sound = asset_cache.audio.get("jump")
         self._penalty_sound = asset_cache.audio.get("penalty")
         self._shoot_sound = asset_cache.audio.get("shoot")
+        self._rewards_sound = asset_cache.audio.get("reward")
 
     def play_jump(self) -> None:
         """Reproduce jump.wav (bonus de vida). Silent if not available.
@@ -49,3 +51,12 @@ class AudioService:
             except Exception:
                 # Disable only this sound permanently; the other continues working
                 self._shoot_sound = None
+
+    def play_reward(self) -> None:
+        """Reproduce reward sound when 300 score is reached. Silent if not available."""
+        if self._rewards_sound is not None:
+            try:
+                self._rewards_sound.play()
+            except Exception:
+                # Disable only this sound permanently; the other continues working
+                self._rewards_sound = None
