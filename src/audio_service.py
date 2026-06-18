@@ -9,9 +9,11 @@ class AudioService:
         asset_cache: AssetCache from AssetLoader
         cache.audio["jump"]    -> pygame.mixer.Sound or None
         cache.audio["penalty"] -> pygame.mixer.Sound or None
+        cache.audio["shoot"]   -> pygame.mixer.Sound or None (optional)
         """
         self._jump_sound = asset_cache.audio.get("jump")
         self._penalty_sound = asset_cache.audio.get("penalty")
+        self._shoot_sound = asset_cache.audio.get("shoot")
 
     def play_jump(self) -> None:
         """Reproduce jump.wav (bonus de vida). Silent if not available.
@@ -38,3 +40,12 @@ class AudioService:
             except Exception:
                 # Disable only this sound permanently; the other continues working
                 self._penalty_sound = None
+
+    def play_shoot(self) -> None:
+        """Reproduce shoot sound when Kiro fires a projectile. Silent if not available."""
+        if self._shoot_sound is not None:
+            try:
+                self._shoot_sound.play()
+            except Exception:
+                # Disable only this sound permanently; the other continues working
+                self._shoot_sound = None

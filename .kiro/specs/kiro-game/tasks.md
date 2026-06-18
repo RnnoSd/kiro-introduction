@@ -107,12 +107,12 @@ Implementación incremental del juego Flappy Kiro en Python/pygame. Cada tarea c
     - **Validates: Requirements 1, 7**
     - Para cualquier secuencia de inputs, `0 ≤ x ≤ canvas.width - sprite_width` y `0 ≤ y ≤ canvas.height - sprite_height`
 
-- [ ] 6. Checkpoint — Asegurar que todos los tests pasan hasta aquí
+- [x] 6. Checkpoint — Asegurar que todos los tests pasan hasta aquí
   - Ejecutar `pytest` y verificar que pasan los tests de modelos, config, audio, input, background y player
   - Preguntar al usuario si hay dudas antes de continuar.
 
-- [ ] 7. Implementar `ScoreTracker`
-  - [ ] 7.1 Crear `src/score_tracker.py` con la clase `ScoreTracker`
+- [x] 7. Implementar `ScoreTracker`
+  - [x] 7.1 Crear `src/score_tracker.py` con la clase `ScoreTracker`
     - `add_points(amount)`: suma puntos; dispara bonus de vida al cruzar múltiplo de 1000 (máx 9 vidas)
     - `deduct_points(amount)`: resta puntos; si llega a 0 o menos, fija en 0 y llama `lose_life()`
     - `lose_life()`: decrementa vidas en 1
@@ -143,8 +143,8 @@ Implementación incremental del juego Flappy Kiro en Python/pygame. Cada tarea c
     - **Validates: Requirements 4**
     - Para cualquier umbral `k * 1000` cruzado exactamente una vez, se otorga exactamente 1 vida adicional
 
-- [ ] 8. Implementar `BarManager`
-  - [ ] 8.1 Crear `src/bar_manager.py` con `BarPair` y `BarManager`
+- [x] 8. Implementar `BarManager`
+  - [x] 8.1 Crear `src/bar_manager.py` con `BarPair` y `BarManager`
     - `update(delta_time)`: desplazar barras a `scroll_speed` px/s; generar nuevo par si distancia al borde derecho ≥ 200px; eliminar pares fuera de pantalla
     - Aleatorizar `gap_y` dentro de `[min_gap_y, max_gap_y]`; `gap_size` entre 150–200px
     - Marcar `scored=True` cuando el borde izquierdo de Kiro supera el borde derecho del par
@@ -158,8 +158,8 @@ Implementación incremental del juego Flappy Kiro en Python/pygame. Cada tarea c
     - Test: `gap_size` siempre entre 150 y 200px
     - _Requirements: 3.1, 3.2, 3.5, 3.6_
 
-- [ ] 9. Implementar `ObjectManager`
-  - [ ] 9.1 Crear `src/object_manager.py` con `GameObject` y `ObjectManager`
+- [x] 9. Implementar `ObjectManager`
+  - [x] 9.1 Crear `src/object_manager.py` con `GameObject` y `ObjectManager`
     - Inicializar al menos 1 `Objeto_Rojo` y 1 `Objeto_Verde` con velocidades aleatorias entre 3–8 px/frame
     - `update(delta_time)`: desplazar cada objeto a su velocidad propia; reposicionar en borde derecho con Y aleatoria al salir por la izquierda
     - `render(surface)`: dibujar objetos (rojo/verde según tipo)
@@ -172,8 +172,8 @@ Implementación incremental del juego Flappy Kiro en Python/pygame. Cada tarea c
     - Test: velocidades en rango `[3, 8]` px/frame
     - _Requirements: 5.1, 5.5_
 
-- [ ] 10. Implementar `ProjectileManager`
-  - [ ] 10.1 Crear `src/projectile_manager.py` con `Projectile` y `ProjectileManager`
+- [x] 10. Implementar `ProjectileManager`
+  - [x] 10.1 Crear `src/projectile_manager.py` con `Projectile` y `ProjectileManager`
     - `spawn(origin)`: instanciar proyectil en el borde derecho del sprite de Kiro
     - `update(delta_time, red_objects)`: mover proyectiles a 400 px/s hacia la derecha; detectar colisión con objetos rojos; eliminar proyectil y objeto rojo en el mismo frame; eliminar proyectiles fuera del borde derecho
     - `render(surface)`: dibujar proyectiles como barras horizontales
@@ -186,12 +186,12 @@ Implementación incremental del juego Flappy Kiro en Python/pygame. Cada tarea c
     - Test: proyectil no interactúa con objetos verdes ni barras
     - _Requirements: 6.2, 6.3_
 
-- [ ] 11. Checkpoint — Asegurar que todos los tests pasan hasta aquí
+- [x] 11. Checkpoint — Asegurar que todos los tests pasan hasta aquí
   - Ejecutar `pytest` y verificar que pasan los tests de score, barras, objetos y proyectiles
   - Preguntar al usuario si hay dudas antes de continuar.
 
-- [ ] 12. Implementar `StateManager` y lógica de colisiones
-  - [ ] 12.1 Crear `src/state_manager.py` con `StateManager`
+- [x] 12. Implementar `StateManager` y lógica de colisiones
+  - [x] 12.1 Crear `src/state_manager.py` con `StateManager`
     - Orquestar `tick(delta_time)`: actualizar `Background`, `Player`, `BarManager`, `ObjectManager`, `ProjectileManager`, `ScoreTracker` solo en estado `PLAYING`
     - Detección de colisiones: Kiro↔Barras (con invulnerabilidad), Kiro↔ObjetosRojos, Kiro↔ObjetosVerdes, Proyectil↔ObjetosRojos
     - Disparar transición a `GAME_OVER` cuando `ScoreTracker.lives == 0`
@@ -199,7 +199,7 @@ Implementación incremental del juego Flappy Kiro en Python/pygame. Cada tarea c
     - `on_quit()`: cerrar aplicación limpiamente
     - _Requirements: 3.3, 3.4, 4.3, 4.4, 4.5, 4.6, 5.2, 5.3, 5.4, 5.6, 6.2, 10.1_
 
-  - [ ] 12.2 Integrar `AudioService` en colisiones y eventos de score
+  - [x] 12.2 Integrar `AudioService` en colisiones y eventos de score
     - `ScoreTracker.add_points()` notifica a `AudioService.play_jump()` al ganar vida
     - Colisión Kiro↔ObjetoRojo notifica a `AudioService.play_penalty()`
     - Colisión Kiro↔ObjetoVerde notifica a `AudioService.play_jump()`
@@ -218,22 +218,22 @@ Implementación incremental del juego Flappy Kiro en Python/pygame. Cada tarea c
     - Test: score cruza 1000 → `lives+1`, `play_jump()` invocado
     - _Requirements: 3.3, 3.4, 4.3, 5.2, 6.2, 10.1, 10.4_
 
-- [ ] 13. Implementar `GameLoop` y pantalla de inicio
-  - [ ] 13.1 Crear `src/game_loop.py` con `GameLoop`
+- [x] 13. Implementar `GameLoop` y pantalla de inicio
+  - [x] 13.1 Crear `src/game_loop.py` con `GameLoop`
     - Inicializar pygame, crear ventana con dimensiones de `CanvasConfig`
     - `start()`: bucle principal con `Clock.tick(60)`; calcular delta time en segundos, capado a 0.1s
     - Pasar eventos pygame al `InputHandler`; despachar `state_manager.tick(delta_time)` cada frame
     - Manejar `pygame.QUIT` llamando `stop()` → `pygame.quit()`
     - _Requirements: 1, 2, 6, 7, 8, 10_
 
-  - [ ] 13.2 Implementar pantalla IDLE y pantalla GAME_OVER en el `Renderer`
+  - [x] 13.2 Implementar pantalla IDLE y pantalla GAME_OVER en el `Renderer`
     - Estado `IDLE`: mostrar mensaje "Presiona ENTER para empezar"
     - Estado `GAME_OVER`: mostrar puntuación final + opciones "Reiniciar" y "Salir" seleccionables
     - Estado `PLAYING`: renderizar en orden Z: fondo → barras → objetos → proyectiles → Kiro → HUD
     - _Requirements: 10.2, 10.3, 10.4, 10.5_
 
-- [ ] 14. Cablear todos los componentes en `main.py`
-  - [ ] 14.1 Ensamblar el juego completo en `main.py`
+- [x] 14. Cablear todos los componentes en `main.py`
+  - [x] 14.1 Ensamblar el juego completo en `main.py`
     - Instanciar `GameConfig`, `AssetLoader`, `AudioService`, `InputHandler`
     - Instanciar `Background`, `Player`, `BarManager`, `ObjectManager`, `ProjectileManager`, `ScoreTracker`
     - Instanciar `StateManager` con todos los subsistemas
@@ -241,7 +241,7 @@ Implementación incremental del juego Flappy Kiro en Python/pygame. Cada tarea c
     - Capturar `FileNotFoundError` de `AssetLoader` e imprimir error descriptivo antes de cerrar
     - _Requirements: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10_
 
-- [ ] 15. Checkpoint final — Asegurar que todos los tests pasan
+- [x] 15. Checkpoint final — Asegurar que todos los tests pasan
   - Ejecutar `pytest` y verificar que pasan todos los tests (unitarios, property-based, integración)
   - Preguntar al usuario si hay dudas antes de declarar el juego completo.
 

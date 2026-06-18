@@ -42,7 +42,7 @@ class ProjectileManager:
         Returns list of red objects that were destroyed."""
         displacement = self._config.speed * delta_time
         projectiles_to_remove = set()
-        objects_to_remove = set()
+        objects_to_destroy = []   # list — GameObject is not hashable (mutable dataclass)
         destroyed_objects = []
 
         for i, proj in enumerate(self.active_projectiles):
@@ -56,9 +56,10 @@ class ProjectileManager:
 
             # Check collision with each red object (only those not already destroyed)
             for obj in red_objects:
-                if obj not in objects_to_remove and rects_overlap(proj.bounds, obj.bounds):
+                already_hit = any(o is obj for o in objects_to_destroy)
+                if not already_hit and rects_overlap(proj.bounds, obj.bounds):
                     projectiles_to_remove.add(i)
-                    objects_to_remove.add(obj)
+                    objects_to_destroy.append(obj)
                     destroyed_objects.append(obj)
                     break  # one projectile can only destroy one object
 

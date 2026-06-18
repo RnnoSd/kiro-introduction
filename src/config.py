@@ -13,8 +13,8 @@ class PlayerConfig:
     start_y: float = 300.0
     base_speed: float = 5.0         # px/frame
     boost_speed: float = 10.0       # px/frame con BARRA ESPACIADORA
-    sprite_width: int = 48
-    sprite_height: int = 48
+    sprite_width: int = 20
+    sprite_height: int = 20
     cooldown_shoot: float = 0.5     # segundos
     cooldown_dash: float = 1.0      # segundos
     cooldown_brake: float = 5.0     # segundos

@@ -7,7 +7,7 @@ from unittest.mock import MagicMock
 from hypothesis import given, settings
 from hypothesis import strategies as st
 
-from score_tracker import ScoreTracker
+from src.score_tracker import ScoreTracker
 
 
 # ---------------------------------------------------------------------------

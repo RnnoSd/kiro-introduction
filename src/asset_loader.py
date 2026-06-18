@@ -28,7 +28,13 @@ class AssetLoader:
                     f"Required image asset not found: '{path}'. "
                     f"Make sure '{path}' exists in the project root."
                 )
-            cache.images[key] = pygame.image.load(path).convert_alpha()
+            surface = pygame.image.load(path)
+            # JPEGs have no alpha channel — use convert() to avoid errors
+            ext = os.path.splitext(path)[1].lower()
+            if ext in (".jpg", ".jpeg"):
+                cache.images[key] = surface.convert()
+            else:
+                cache.images[key] = surface.convert_alpha()
 
         # Load audio — silent failure per file (graceful degradation per Req 9.4, 9.5)
         for key, path in manifest.audio.items():

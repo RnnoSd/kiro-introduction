@@ -90,9 +90,13 @@ class Player:
         self.cooldown_brake = self.config.cooldown_brake  # 5.0 s
 
     def render(self, surface: pygame.Surface) -> None:
-        """Draw the sprite or a placeholder rect if no sprite is loaded."""
+        """Draw the sprite scaled to sprite_width×sprite_height, or a placeholder rect."""
         if self.sprite is not None:
-            surface.blit(self.sprite, (int(self.position.x), int(self.position.y)))
+            scaled = pygame.transform.scale(
+                self.sprite,
+                (self.config.sprite_width, self.config.sprite_height)
+            )
+            surface.blit(scaled, (int(self.position.x), int(self.position.y)))
         else:
             pygame.draw.rect(surface, (255, 255, 255), (
                 int(self.position.x), int(self.position.y),
